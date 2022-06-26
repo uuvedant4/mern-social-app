@@ -25,7 +25,7 @@ const Form = ({ currentId, setCurrentId }) => {
   }, [post]);
 
   const clear = () => {
-    setCurrentId(0);
+    setCurrentId(null);
     setPostData({
       creator: "",
       title: "",
@@ -38,13 +38,12 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (currentId === 0) {
-      dispatch(createPost(postData));
-      clear();
-    } else {
+    if (currentId != null) {
       dispatch(updatePost(currentId, postData));
-      clear();
+    } else {
+      dispatch(createPost(postData));
     }
+    clear();
   };
 
   return (
